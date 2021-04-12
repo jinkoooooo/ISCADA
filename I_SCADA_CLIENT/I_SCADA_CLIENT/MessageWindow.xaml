@@ -1,0 +1,113 @@
+﻿<Window x:Class="I_SCADA_CLIENT.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:I_SCADA_CLIENT"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None"
+        Title="MessageWindow" Height="400" Width="800"
+        WindowStartupLocation="Manual" 
+       Left="500" Top="0">
+    <Grid>
+        <Grid x:Name="TopTitle" Panel.ZIndex="2" Background="#003264" 
+                  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" Height="40"
+                  MouseLeftButtonDown="Rectangle_MouseLeftButtonDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Button Uid="TopTitle" Background="#003264" Grid.Column="3" Width="40" Foreground="White" Click="Button_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                X
+            </Button>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Label VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"
+                       HorizontalAlignment="Center"  FontSize="30" HorizontalContentAlignment="Center">받은 메시지 함</Label>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"
+                       HorizontalAlignment="Center"  FontSize="30" HorizontalContentAlignment="Center">답장 보내기</Label>
+                <Button Grid.Column="2" FontSize="20" BorderBrush="Gray" Click="Btn_Send_Message"
+                                Background="Gray" Foreground="White" Margin="10,10,10.2,10.4" >전송</Button>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="3">
+                <Button Grid.Column="0" FontSize="20" BorderBrush="Gray" Click="Btn_Search_Message" 
+                                Background="Gray" Foreground="White" Margin="10,10,10.2,10.4" >메시지 조회</Button>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"
+                       HorizontalAlignment="Center"  FontSize="30" HorizontalContentAlignment="Center">To</Label>
+                <TextBox Grid.Column="2" Text="{Binding ToId}"
+                Name="txtSendId" FontSize="20" HorizontalContentAlignment="Center" Margin="10.4,10,10.2,10.4"  />
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="5">
+                <DataGrid
+                      Name="dataGrid"
+                      IsReadOnly="True" 
+                      BorderThickness="0 1 0 0"
+                      ItemsSource="{Binding Message_List, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      HorizontalGridLinesBrush="#ccc"
+                      VerticalGridLinesBrush="#ccc"
+                      Foreground="#333"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick"
+                      >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="FROM ID" Binding="{Binding FROM_ID}" />
+                        <DataGridTextColumn Header="FROM NAME" Binding="{Binding FROM_NAME}"/>
+                        <DataGridTextColumn Header="메시지 내용" Binding="{Binding MESSAGE}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="5">
+                <TextBox Text="{Binding ReMessage}" Name="tbxLog"
+                         FontSize="10" Background="#FFFFFF"></TextBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

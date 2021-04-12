@@ -1,0 +1,144 @@
+﻿<Window x:Class="I_SCADA_SERVER.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:I_SCADA_SERVER"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="500" Width="500" 
+        Closed="Window_Closed" AllowsTransparency="True"
+        WindowStyle="None">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopTitle" Panel.ZIndex="2" Background="#003264" Grid.Row="0" VerticalAlignment="Top" Height="30" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Button Uid="TopTitle" Background="#003264" Grid.Column="3" Width="40" Foreground="White" Click="BtnProgramClose">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                X
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="0">
+            <Label VerticalAlignment="Center" VerticalContentAlignment="Center"
+                       HorizontalAlignment="Center"  FontSize="40" HorizontalContentAlignment="Center">I SCADA SERVER</Label>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Content="서버가동" 
+                        Background="Transparent"
+                        Padding="20"
+                        BorderThickness="0"
+                        FontSize="20"
+                        IsEnabled="{Binding ServerStartFlag}"
+                        Click="BtnServerStart"/>
+            <Button Grid.Column="3" Content="서버종료" 
+                        Background="Transparent"
+                        Padding="20"
+                        BorderThickness="0"
+                        FontSize="20"
+                        IsEnabled="{Binding ServerStopFlag}"
+                        Click="BtnServerStop"/>
+        </Grid>
+
+        
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <TextBox Text="{Binding LoggerStr}" Name="tbxLog"
+                         FontSize="10" Background="#FFFFFF"
+                         IsReadOnly="True" TextWrapping="Wrap"
+                         HorizontalScrollBarVisibility="Auto"
+                         Focusable="True" TextChanged="TbxFocusBottom"></TextBox>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <DataGrid
+                      IsReadOnly="True" 
+                      BorderThickness="0 1 0 0"
+                      ItemsSource="{Binding Client_List, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      HorizontalGridLinesBrush="#ccc"
+                      VerticalGridLinesBrush="#ccc"
+                      Foreground="#333"
+                      >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="IP-Address" Binding="{Binding IP_ADDRESS}" Width="*" />
+                        <DataGridTextColumn Header="User-Code" Binding="{Binding USER_ID}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="1" Content="접속 차단" 
+                        Background="Transparent"
+                        Padding="20"
+                        BorderThickness="0"
+                        FontSize="20"
+                        IsEnabled="{Binding btnClientControll}"/>
+                
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
+

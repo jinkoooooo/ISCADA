@@ -1,0 +1,167 @@
+﻿<Window x:Class="I_SCADA_CLIENT.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:I_SCADA_CLIENT"
+        mc:Ignorable="d"
+         Title="LoginWindow"
+        AllowsTransparency="True" WindowStyle="None"  Width="500" Height="350" Background="#FFECECEC"
+        WindowStartupLocation="Manual" 
+       Left="800" Top="0">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Background="White"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="180" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0,32,0,32" >
+                <Label VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"
+                       HorizontalAlignment="Center"  FontSize="30" HorizontalContentAlignment="Center">I - SCADA - SYSTEM</Label>
+            </Grid>
+
+            <Grid Margin="10,21,31,9.8" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="/image/inhatc_logo.jpg" />
+                </Grid.Background>
+            </Grid>
+
+            <Grid x:Name="TopTitle" Panel.ZIndex="2" Background="#003264" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" Height="40" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Button Uid="TopTitle" Background="#003264" Grid.Column="3" Width="40" Foreground="White" Click="Button_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=TopTitle}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    X
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#FF696A6E">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="180" />
+                </Grid.ColumnDefinitions>
+
+
+
+            </Grid>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1" Margin="0,10" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="4" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="txtId" Grid.Column="1" Grid.Row="1" FontSize="30" HorizontalContentAlignment="Center" Margin="36,0,10,0" KeyDown="Txt_KeyDown"  />
+                    <PasswordBox  Grid.Column="1" Grid.Row="3" FontSize="30" x:Name="txtPasswd" PasswordChar="*" Margin="36,0,10,0" HorizontalContentAlignment="Center" />
+                    <Label Grid.Column="1" Grid.Row="1" Content="ID :" FontSize ="15" Margin="0,10,306,10"/>
+                    <Label Grid.Row="3" Content="PW :" FontSize ="15" Margin="0,10,298,10" Grid.ColumnSpan="2"/>
+                    <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" >
+                        <Button FontSize="20" BorderBrush="Gray" Click="ButtonOK_Click" 
+                                HorizontalAlignment="Left" Width="110" Margin="0,-3,0,0" 
+                                Background="Gray" Foreground="White" >로그인</Button>
+                    </Grid>
+                </Grid>
+                <Label Content="{Binding LoggerStr}" FontWeight="Bold" FontSize="15" Grid.Column="1"  HorizontalAlignment="Center" Height="30" Margin="10,111,0,0" Grid.Row="1" Width="440" Grid.RowSpan="2" Foreground="#FFE82C2C"></Label>
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TextBlock FontFamily="'Gulim'" FontSize="16" VerticalAlignment="Center" Foreground="#D1D2D5" >☎ 담당자</TextBlock>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <TextBlock FontFamily="'Gulim'" FontSize="16" Foreground="#D1D2D5" Name="orderMsg"> - 정진구(010-5845-4080)</TextBlock>
+                </Grid>
+
+            </Grid>
+        </Grid>
+        <Border Grid.Row="0" Grid.RowSpan="4" 
+                Visibility="{Binding IsBackgroundWork, Converter={StaticResource booleanToVisibilityConverter}, FallbackValue=Collapsed}" >
+
+            <Border.Background>
+                <SolidColorBrush Color="#ccc" Opacity="0.7"/>
+            </Border.Background>
+
+            <Grid MaxWidth="300" MaxHeight="80">
+                <Border Padding="20" BorderBrush="#aaa" BorderThickness="2" >
+                    <Border.Background>
+                        <SolidColorBrush Color="#fff"/>
+                    </Border.Background>
+
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center">
+                        <Label Content="{Binding BackgroundWorkMessage, FallbackValue=유저정보확인중입니다.}" HorizontalAlignment="Center"/>
+                        <ProgressBar IsIndeterminate="{Binding IsIndeterminate}" Value="{Binding IsBackgroundWorkProgress}" Height="5" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+
+</Window>

@@ -1,0 +1,7 @@
+{
+    "ID": "Server1",
+    "Name": "Server",
+    "Type": "Scada",
+    "Address": "127.0.0.1",
+    "Port": 5001
+}

@@ -1,0 +1,18 @@
+2020-05-26 14:24:34,647 [All] DEBUG - Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-12545: 네트워크 전송: 접속 호스트 이름을 분석할 수 없습니다. ---> OracleInternal.Network.NetworkException (0x80004005): ORA-12545: 네트워크 전송: 접속 호스트 이름을 분석할 수 없습니다. ---> System.Net.Sockets.SocketException (0x80004005): 알려진 호스트가 없습니다
+   위치: System.Net.Dns.GetAddrInfo(String name)
+   위치: System.Net.Dns.InternalGetHostByName(String hostName, Boolean includeIPv6)
+   위치: System.Net.Dns.GetHostAddresses(String hostNameOrAddress)
+   위치: OracleInternal.Network.TcpTransportAdapter.Connect(ConnectionOption conOption)
+   위치: OracleInternal.Network.OracleCommunication.DoConnect(String tnsDescriptor)
+   위치: OracleInternal.Network.OracleCommunication.Connect(String tnsDescriptor, Boolean doNAHandshake, String IName, ConnectionOption CO)
+   위치: OracleInternal.ServiceObjects.OracleConnectionImpl.Connect(ConnectionString cs, Boolean bOpenEndUserSession, OracleConnection connRefForCriteria, String instanceName)
+   위치: OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   위치: OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   위치: OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   위치: Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   위치: Dapper.SqlMapper.<QueryImpl>d__140`1.MoveNext()
+   위치: System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   위치: System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   위치: Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   위치: I_SCADA_SERVER.dao.ServerDao.SelectMDUser() 파일 C:\Users\정진구\source\repos\I_SCADA_SERVER\I_SCADA_SERVER\dao\ServerDao.cs:줄 31
+   위치: I_SCADA_SERVER.MainWindow.Socket_Server_OnReceived(AsyncSocketServer asyncSocketServer, AsyncSocketServerConsumer asyncSocketClient, Byte[] value) 파일 C:\Users\정진구\source\repos\I_SCADA_SERVER\I_SCADA_SERVER\MainWindow.xaml.cs:줄 147
